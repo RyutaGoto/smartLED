@@ -1,15 +1,13 @@
 
 <template lang="pug">
 div#app
-  div.top
+  div.top(:style="styleVariables")
     div.top_value
       h1 {{ hue }}%
       h1 {{ saturation }}%
       h1 {{ brightness }}%
   div.body
     div.body_bar
-      //p {{ hue }}
-      //VueSlider(:model="value" ref="slider")
       input(v-model="hue" max="100" min="0" type="range")
       input(v-model="saturation" max="100" min="0" type="range")
       input(v-model="brightness" max="100" min="0" type="range")
@@ -30,9 +28,9 @@ export default {
   },
   data() {
     return{
-      hue: 0,
-      saturation: 0,
-      brightness: 0
+      hue: 50,
+      saturation: 50,
+      brightness: 50
       /*
       colors: {
         hex: '#194d33',
@@ -43,6 +41,15 @@ export default {
       }
       */
     }
+  },
+  computed: {
+    styleVariables() {
+      return {
+        '--hue': this.hue,
+        '--saturation': this.saturation,
+        '--brightness': this.brightness
+      };
+    },
   }
 }
 </script>
@@ -57,6 +64,11 @@ export default {
   //margin-top: 60px;
 
   .top
+    --hue: 50%; //デフォルト値
+    --saturation: 50% //デフォルト値
+    --brightness: 50%  //デフォルト値
+    //background: hsl(var(--hue), var(--saturation), var(--brightness));
+    background-color: hsl(100, 100%, 100%);
     display: flex;
     flex-direction: column;
     height:  30vh;
@@ -65,6 +77,9 @@ export default {
       display: flex;
       justify-content: center;
   .body
+    //background-color: hsl(100, 100%, 100%);
+    //background-color: #000;
+    margin: 20% 0 0 0;
     .body_bar
       display: flex;
       flex-direction: column;
